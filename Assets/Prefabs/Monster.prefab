@@ -68,7 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a58dab44e1c4541aa38fdde7b0e2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentBlood: 100
   hurtValue: 100
+  earnMoney: 50
 --- !u!54 &1768020339229844994
 Rigidbody:
   m_ObjectHideFlags: 0

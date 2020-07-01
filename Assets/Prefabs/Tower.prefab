@@ -233,3 +233,4 @@ MonoBehaviour:
     type: 3}
   attackInterval: 2
   attackDistance: 50
+  costMoney: 50

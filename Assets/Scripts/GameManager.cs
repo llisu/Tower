@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class CreateMonsterInfo
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject towerPrefab;
     public LayerMask layerMask;
+
+    public float currentMoney;
+    public Text moneyText;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +33,9 @@ public class GameManager : MonoBehaviour
     // Updayate is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        moneyText.text = currentMoney.ToString();
+        //建塔
+        if (Input.GetMouseButtonDown(0))
         {
             Ray tempRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit tempRaycastHit;
@@ -38,11 +44,17 @@ public class GameManager : MonoBehaviour
                 Platform tempPlatform = tempRaycastHit.collider.GetComponentInParent<Platform>();
                 if((tempPlatform != null)&&!tempPlatform.hasTower)
                 {
-                    GameObject tempTower = GameObject.Instantiate(towerPrefab);
-                    tempTower.transform.parent = null;
-                    tempTower.transform.position = tempPlatform.transform.position;
-                    tempTower.transform.rotation = tempPlatform.transform.rotation;
-                    tempPlatform.hasTower = true;
+                    float tempTowerCostMoney = towerPrefab.GetComponent<Tower>().costMoney;
+                    if (currentMoney>= tempTowerCostMoney)
+                    {
+                        GameObject tempTower = GameObject.Instantiate(towerPrefab);
+                        tempTower.transform.parent = null;
+                        tempTower.transform.position = tempPlatform.transform.position;
+                        tempTower.transform.rotation = tempPlatform.transform.rotation;
+                        tempPlatform.hasTower = true;
+                        currentMoney -= tempTowerCostMoney;
+                    }
+                    
                 }
                 
             }
@@ -62,8 +74,9 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    public void OnMonsterDead()
+    public void OnMonsterDead(Monster pMonster)
     {
+        currentMoney += pMonster.earnMoney;
         monsterDeadCount++;
         if(monsterDeadCount==createMonsterInfoList.Count)
         {
