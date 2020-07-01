@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class Monster : MonoBehaviour
 {
     public float currentBlood;
     public float hurtValue;
+    public UnityAction onDeadAction;
     private Transform endPoint;
     private NavMeshAgent navMeshAgent;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +47,8 @@ public class Monster : MonoBehaviour
     }
     void OnDead()
     {
+        onDeadAction?.Invoke();
         Destroy(gameObject);
-        SceneManager.LoadScene("SucceedScene");
+        
     }
 }
