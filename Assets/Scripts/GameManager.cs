@@ -8,6 +8,7 @@ public class CreateMonsterInfo
 {
     public GameObject monsterPrefab;
     public float waitTime;
+    public Transform bornPoint;//怪物有好几个出生点
 }
 public class GameManager : MonoBehaviour
 {
@@ -31,8 +32,8 @@ public class GameManager : MonoBehaviour
         {
             GameObject tempMonster = GameObject.Instantiate(item.monsterPrefab);
             tempMonster.transform.parent = null;
-            tempMonster.transform.position = bornPoint.transform.position;
-            tempMonster.transform.rotation = bornPoint.transform.rotation;
+            tempMonster.transform.position = item.bornPoint.transform.position;
+            tempMonster.transform.rotation = item.bornPoint.transform.rotation;
             tempMonster.GetComponent<Monster>().onDeadAction += OnMonsterDead;
             yield return new WaitForSeconds(item.waitTime);
         }
