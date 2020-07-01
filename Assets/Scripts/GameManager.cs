@@ -9,21 +9,44 @@ public class CreateMonsterInfo
     public GameObject monsterPrefab;
     public float waitTime;
     public Transform bornPoint;//怪物有好几个出生点
+
+    
 }
 public class GameManager : MonoBehaviour
 {
     public Transform bornPoint;
     public List<CreateMonsterInfo> createMonsterInfoList = new List<CreateMonsterInfo>();
     private int monsterDeadCount;//怪物死亡次数
+
+    public GameObject towerPrefab;
+    public LayerMask layerMask;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(CreateMonster());
     }
 
-    // Update is called once per frame
+    // Updayate is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray tempRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit tempRaycastHit;
+            if(Physics.Raycast(tempRay,out tempRaycastHit,100000, layerMask))
+            {
+                Platform tempPlatform = tempRaycastHit.collider.GetComponentInParent<Platform>();
+                if((tempPlatform != null)&&!tempPlatform.hasTower)
+                {
+                    GameObject tempTower = GameObject.Instantiate(towerPrefab);
+                    tempTower.transform.parent = null;
+                    tempTower.transform.position = tempPlatform.transform.position;
+                    tempTower.transform.rotation = tempPlatform.transform.rotation;
+                    tempPlatform.hasTower = true;
+                }
+                
+            }
+        }
         
     }
     public IEnumerator CreateMonster()
