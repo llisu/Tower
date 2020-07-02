@@ -17,10 +17,11 @@ public class CreateMonsterInfo
 public class GameManager : MonoBehaviour
 {
     public Transform bornPoint;
-    public List<CreateMonsterInfo> createMonsterInfoList = new List<CreateMonsterInfo>();//存放预制体
+    public List<CreateMonsterInfo> createMonsterInfoList = new List<CreateMonsterInfo>();
     private int monsterDeadCount;//怪物死亡次数
 
-    public GameObject towerPrefab;
+    public GameObject plaecTowerPrefab;
+    public List<GameObject> towerPrefab = new List<GameObject>();//存放预制体
     public LayerMask layerMask;
 
     public float currentMoney;
@@ -45,10 +46,10 @@ public class GameManager : MonoBehaviour
                 Platform tempPlatform = tempRaycastHit.collider.GetComponentInParent<Platform>();
                 if((tempPlatform != null)&&!tempPlatform.hasTower)
                 {
-                    float tempTowerCostMoney = towerPrefab.GetComponent<Tower>().costMoney;
+                    float tempTowerCostMoney = plaecTowerPrefab.GetComponent<Tower>().costMoney;
                     if (currentMoney>= tempTowerCostMoney)
                     {
-                        GameObject tempTowerGo = GameObject.Instantiate(towerPrefab);
+                        GameObject tempTowerGo = GameObject.Instantiate(plaecTowerPrefab);
                         tempTowerGo.transform.parent = null;
                         tempTowerGo.transform.position = tempPlatform.transform.position;
                         tempTowerGo.transform.rotation = tempPlatform.transform.rotation;
@@ -85,5 +86,14 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("SucceedScene");
         }
+    }
+
+    public void OnTowerClickButtonDown()
+    {
+        plaecTowerPrefab = towerPrefab[0];
+    }
+    public void OnTower1ClickButtonDown()
+    {
+        plaecTowerPrefab = towerPrefab[1];
     }
 }
