@@ -84,8 +84,12 @@ public class GameManager : MonoBehaviour
         monsterDeadCount++;
         if(monsterDeadCount==createMonsterInfoList.Count)
         {
-          
-            Invoke("LoadSucceedScene", 3);
+            Home tempHome = GameObject.FindObjectOfType<Home>();
+            if(tempHome!=null&&tempHome.currentBlood>0)
+            {
+                Invoke("LoadSucceedScene", 3);
+            }
+                     
         }
     }
 
