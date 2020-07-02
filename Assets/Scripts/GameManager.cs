@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             if(Physics.Raycast(tempRay,out tempRaycastHit,100000, layerMask))
             {
                 Platform tempPlatform = tempRaycastHit.collider.GetComponentInParent<Platform>();
-                if((tempPlatform != null)&&!tempPlatform.hasTower)
+                if((tempPlatform != null)&&!tempPlatform.hasTower&& plaecTowerPrefab!=null)
                 {
                     float tempTowerCostMoney = plaecTowerPrefab.GetComponent<Tower>().costMoney;
                     if (currentMoney>= tempTowerCostMoney)
@@ -84,7 +84,8 @@ public class GameManager : MonoBehaviour
         monsterDeadCount++;
         if(monsterDeadCount==createMonsterInfoList.Count)
         {
-            SceneManager.LoadScene("SucceedScene");
+          
+            Invoke("LoadSucceedScene", 3);
         }
     }
 
@@ -95,5 +96,9 @@ public class GameManager : MonoBehaviour
     public void OnTower1ClickButtonDown()
     {
         plaecTowerPrefab = towerPrefab[1];
+    }
+    void LoadSucceedScene()
+    {
+        SceneManager.LoadScene("SucceedScene");
     }
 }

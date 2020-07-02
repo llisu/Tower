@@ -35,7 +35,7 @@ public class Monster : MonoBehaviour
         if(tempHome!=null)
         {
             tempHome.Hurt(hurtValue);
-            Destroy(gameObject);
+            Hurt(currentBlood);
         }
     }
     public void Hurt(float pHurtValue)
@@ -58,4 +58,5 @@ public class Monster : MonoBehaviour
         Destroy(gameObject);
         
     }
+    
 }
