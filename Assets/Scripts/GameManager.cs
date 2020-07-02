@@ -10,13 +10,14 @@ public class CreateMonsterInfo
     public GameObject monsterPrefab;
     public float waitTime;
     public Transform bornPoint;//怪物有好几个出生点
+    public Transform endPoint;//怪物有好几个终点
 
     
 }
 public class GameManager : MonoBehaviour
 {
     public Transform bornPoint;
-    public List<CreateMonsterInfo> createMonsterInfoList = new List<CreateMonsterInfo>();
+    public List<CreateMonsterInfo> createMonsterInfoList = new List<CreateMonsterInfo>();//存放预制体
     private int monsterDeadCount;//怪物死亡次数
 
     public GameObject towerPrefab;
@@ -47,10 +48,10 @@ public class GameManager : MonoBehaviour
                     float tempTowerCostMoney = towerPrefab.GetComponent<Tower>().costMoney;
                     if (currentMoney>= tempTowerCostMoney)
                     {
-                        GameObject tempTower = GameObject.Instantiate(towerPrefab);
-                        tempTower.transform.parent = null;
-                        tempTower.transform.position = tempPlatform.transform.position;
-                        tempTower.transform.rotation = tempPlatform.transform.rotation;
+                        GameObject tempTowerGo = GameObject.Instantiate(towerPrefab);
+                        tempTowerGo.transform.parent = null;
+                        tempTowerGo.transform.position = tempPlatform.transform.position;
+                        tempTowerGo.transform.rotation = tempPlatform.transform.rotation;
                         tempPlatform.hasTower = true;
                         currentMoney -= tempTowerCostMoney;
                     }
@@ -65,11 +66,13 @@ public class GameManager : MonoBehaviour
     {
         foreach(var item in createMonsterInfoList)
         {
-            GameObject tempMonster = GameObject.Instantiate(item.monsterPrefab);
-            tempMonster.transform.parent = null;
-            tempMonster.transform.position = item.bornPoint.transform.position;
-            tempMonster.transform.rotation = item.bornPoint.transform.rotation;
-            tempMonster.GetComponent<Monster>().onDeadAction += OnMonsterDead;
+            GameObject tempMonsterGo = GameObject.Instantiate(item.monsterPrefab);
+            tempMonsterGo.transform.parent = null;
+            tempMonsterGo.transform.position = item.bornPoint.transform.position;
+            tempMonsterGo.transform.rotation = item.bornPoint.transform.rotation;
+            Monster tempMonster = tempMonsterGo.GetComponent<Monster>();
+            tempMonster.endPoint = item.endPoint;
+            tempMonster.onDeadAction += OnMonsterDead;
             yield return new WaitForSeconds(item.waitTime);
         }
 

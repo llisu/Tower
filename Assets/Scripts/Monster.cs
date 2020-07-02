@@ -10,7 +10,7 @@ public class Monster : MonoBehaviour
     public float currentBlood;
     public float hurtValue;
     public UnityAction<Monster> onDeadAction;
-    private Transform endPoint;
+    public Transform endPoint;
     private NavMeshAgent navMeshAgent;
 
     public float earnMoney;
@@ -18,8 +18,6 @@ public class Monster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        endPoint = GameObject.Find("EndPoint").transform;
-
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.SetDestination(endPoint.position);//设置目标点
     }
