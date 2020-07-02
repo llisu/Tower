@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Home : MonoBehaviour
 {
     public float currentBlood;
+    public GameObject deadEffectPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,17 @@ public class Home : MonoBehaviour
     }
     void OnDead()
     {
-        Destroy(gameObject);
-        SceneManager.LoadScene("FailScene");
+        
+        GameObject tempEffect = GameObject.Instantiate(deadEffectPrefab);
+        tempEffect.transform.parent = null;
+        tempEffect.transform.position = transform.position;
+        tempEffect.transform.rotation = transform.rotation;
+
+        transform.GetChild(0).gameObject.SetActive(false);
+        Invoke("LoadFailScene", 3);
+    }
+    void LoadFailScene()
+    {
+        SceneManager.LoadScene("FailScene");                                                                                                                                         
     }
 }

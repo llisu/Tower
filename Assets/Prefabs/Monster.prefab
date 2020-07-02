@@ -70,6 +70,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBlood: 100
   hurtValue: 100
+  endPoint: {fileID: 0}
+  deadEffectPrefab: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
+    type: 3}
   earnMoney: 50
 --- !u!54 &1768020339229844994
 Rigidbody:

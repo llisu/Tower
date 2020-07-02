@@ -75,7 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329fefaa9b432ca4f8cf09ce7dfb2b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBlood: 100
+  currentBlood: 50
+  deadEffectPrefab: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56,
+    type: 3}
 --- !u!1 &1093163950850171012
 GameObject:
   m_ObjectHideFlags: 0

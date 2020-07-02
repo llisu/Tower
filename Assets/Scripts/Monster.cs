@@ -13,6 +13,8 @@ public class Monster : MonoBehaviour
     public Transform endPoint;
     private NavMeshAgent navMeshAgent;
 
+    public GameObject deadEffectPrefab;
+
     public float earnMoney;
     
     // Start is called before the first frame update
@@ -47,6 +49,11 @@ public class Monster : MonoBehaviour
     }
     void OnDead()
     {
+        GameObject tempEffect= GameObject.Instantiate(deadEffectPrefab);
+        tempEffect.transform.parent = null;
+        tempEffect.transform.position = transform.position;
+        tempEffect.transform.rotation = transform.rotation;
+
         onDeadAction?.Invoke(this);
         Destroy(gameObject);
         

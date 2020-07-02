@@ -10,7 +10,7 @@ public class Tower : MonoBehaviour
     private float preAttackTime;
     private Transform firePoint;
 
-    public float costMoney;
+    public float costMoney;                                                                                                                      
     // Start is called before the first frame update
     void Start()
     {

@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float hurtValue;
     public float speed;
+    public GameObject deadEffectPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,9 @@ public class Bullet : MonoBehaviour
         if (tempMonster != null)
         {
             tempMonster.Hurt(hurtValue);
+            GameObject tempEffect = GameObject.Instantiate(deadEffectPrefab);
+            tempEffect.transform.parent = null;
+            tempEffect.transform.position = collision.contacts[0].point;//子弹碰到的第一个对象的点                                                                                     
             Destroy(gameObject);
         }
     }
