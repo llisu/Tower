@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtValue: 50
-  speed: 15
+  speed: 50
   deadEffectPrefab: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
+  myRigidbody: {fileID: 0}
 --- !u!54 &7132277797932997830
 Rigidbody:
   m_ObjectHideFlags: 0

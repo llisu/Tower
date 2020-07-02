@@ -7,16 +7,18 @@ public class Bullet : MonoBehaviour
     public float hurtValue;
     public float speed;
     public GameObject deadEffectPrefab;
+    public Rigidbody myRigidbody;
     // Start is called before the first frame update
     void Start()
     {
-        
+        myRigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        //transform.position += transform.forward * speed * Time.deltaTime;
+        myRigidbody.velocity = transform.forward * speed;
     }
     private void OnCollisionEnter(Collision collision)
     {
