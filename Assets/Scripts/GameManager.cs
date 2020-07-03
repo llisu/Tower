@@ -9,7 +9,7 @@ public class CreateMonsterInfo
 {
     public GameObject monsterPrefab;
     public float waitTime;
-    public Transform bornPoint;//怪物有好几个出生点
+    public Transform bornPoint;//不同怪物不同出生点
     public Transform endPoint;//怪物有好几个终点
 
     

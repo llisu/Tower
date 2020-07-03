@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class Monster : MonoBehaviour
     public UnityAction<Monster> onDeadAction;
     public Transform endPoint;
     private NavMeshAgent navMeshAgent;
-
+    public Slider slider;
+    private float totalBlood;
     public GameObject deadEffectPrefab;
 
     public float earnMoney;
@@ -22,12 +24,14 @@ public class Monster : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.SetDestination(endPoint.position);//设置目标点
+        totalBlood = currentBlood;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        slider.value = currentBlood / totalBlood;
+        slider.transform.LookAt(Camera.main.transform);//3D血条始终看向摄像机，防止血条跟着怪物旋转
     }
     private void OnCollisionEnter(Collision collision)
     {
